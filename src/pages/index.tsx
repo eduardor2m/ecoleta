@@ -1,5 +1,9 @@
+import { BiExit } from 'react-icons/bi';
+
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from '../styles/pages/Home.module.scss';
 
@@ -12,9 +16,56 @@ const Home: NextPage = () => {
         <link rel="icon" href="/assets/icon.svg" />
       </Head>
 
-      <main className={styles.main}></main>
+      <nav className={styles.navbar}>
+        <Link href="/">
+          <a href="/">
+            <Image
+              src="/assets/logo.svg"
+              alt="Ecoleta"
+              width={150}
+              height={50}
+            />
+          </a>
+        </Link>
 
-      <footer className={styles.footer}></footer>
+        <Link href="/point">
+          <a href="/point" className={styles.link}>
+            <BiExit color="#34CB79" size={24} />
+            <span className={styles.textLink}>Cadastre um ponto de coleta</span>
+          </a>
+        </Link>
+      </nav>
+
+      <main className={styles.main}>
+        <section className={styles.info}>
+          <h1 className={styles.title}>
+            Seu marketplace <br /> de coleta de resíduos.
+          </h1>
+          <p className={styles.description}>
+            Ajudamos pessoas a encontrarem pontos <br /> de coleta de forma
+            eficiente.
+          </p>
+          <button className={styles.button}>
+            <section className={styles.buttonIcon}>
+              <BiExit color="#fff" size={24} />
+            </section>
+            <section className={styles.sectionText}>
+              <span className={styles.buttonText}>
+                Pesquise pontos de coleta
+              </span>
+            </section>
+          </button>
+        </section>
+
+        <section className={styles.image}>
+          <Image
+            src="/assets/people.svg"
+            alt="Ecoleta"
+            width={400}
+            height={400}
+          />
+        </section>
+      </main>
     </div>
   );
 };

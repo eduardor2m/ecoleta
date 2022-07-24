@@ -1,5 +1,96 @@
 .main {
   max-width: 1120px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: row;
 
+}
+
+.navbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+  .link {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+
+    .textLink {
+      margin-left: 10px;
+      color: var(--title);
+      font-weight: bold;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  width: 60vw;
+  height: 90vh;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  .title {
+    font-size: 54px;
+    font-weight: bold;
+    color: var(--title);
+  }
+
+  .description {
+    font-size: 24px;
+    margin-top: 24px;
+    color: var(--subText);
+  }
+
+  .button {
+    display: flex;
+    width: 348px;
+    height: 72px;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 40px;
+    background-color: var(--greenpeace);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: none;
+
+    .buttonIcon {
+      display: flex;
+      width: 72px;
+      height: 72px;
+      border-radius: 5px 0 0 5px;
+      align-items: center;
+      justify-content: center;
+      background-color: #2FB86E;
+    }
+
+    .sectionText {
+      display: flex;
+      width: 280px;
+      height: 72px;
+      border-radius: 0 5px 5px 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .buttonText {
+      margin-left: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+}
+
+.image {
+  display: flex;
+  width: 40vw;
+  height: 90vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
