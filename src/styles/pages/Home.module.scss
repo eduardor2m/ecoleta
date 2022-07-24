@@ -1,9 +1,7 @@
-.main {
+.container {
   max-width: 1120px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-
+  max-height: 100vh;
 }
 
 .navbar {
@@ -11,7 +9,7 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 40px 0px;
 
   .link {
     display: flex;
@@ -26,71 +24,77 @@
   }
 }
 
-.info {
+.main {
   display: flex;
-  width: 60vw;
-  height: 90vh;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: row;
 
-  .title {
-    font-size: 54px;
-    font-weight: bold;
-    color: var(--title);
-  }
-
-  .description {
-    font-size: 24px;
-    margin-top: 24px;
-    color: var(--subText);
-  }
-
-  .button {
+  .info {
     display: flex;
-    width: 348px;
-    height: 72px;
-    align-items: center;
-    border-radius: 5px;
-    margin-top: 40px;
-    background-color: var(--greenpeace);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    border: none;
+    width: 60vw;
+    height: 80vh;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 
-    .buttonIcon {
-      display: flex;
-      width: 72px;
-      height: 72px;
-      border-radius: 5px 0 0 5px;
-      align-items: center;
-      justify-content: center;
-      background-color: #2FB86E;
-    }
-
-    .sectionText {
-      display: flex;
-      width: 280px;
-      height: 72px;
-      border-radius: 0 5px 5px 0;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .buttonText {
-      margin-left: 10px;
-      font-size: 16px;
+    .title {
+      font-size: 54px;
       font-weight: bold;
-      color: #fff;
+      color: var(--title);
+    }
+
+    .description {
+      font-size: 24px;
+      margin-top: 24px;
+      color: var(--subText);
+    }
+
+    .button {
+      display: flex;
+      width: 348px;
+      height: 72px;
+      align-items: center;
+      border-radius: 5px;
+      margin-top: 40px;
+      background-color: var(--greenpeace);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      border: none;
+
+      .buttonIcon {
+        display: flex;
+        width: 72px;
+        height: 72px;
+        border-radius: 5px 0 0 5px;
+        align-items: center;
+        justify-content: center;
+        background-color: #2FB86E;
+      }
+
+      .sectionText {
+        display: flex;
+        width: 280px;
+        height: 72px;
+        border-radius: 0 5px 5px 0;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .buttonText {
+        margin-left: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+      }
     }
   }
-}
 
-.image {
-  display: flex;
-  width: 40vw;
-  height: 90vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  .image {
+    display: flex;
+    width: 40vw;
+    height: 80vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
 }
