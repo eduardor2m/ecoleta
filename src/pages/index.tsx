@@ -28,8 +28,8 @@ const Home: NextPage = () => {
           </a>
         </Link>
 
-        <Link href="/point">
-          <a href="/point" className={styles.link}>
+        <Link href="/register">
+          <a href="/register" className={styles.link}>
             <BiExit color="#34CB79" size={24} />
             <span className={styles.textLink}>Cadastre um ponto de coleta</span>
           </a>
