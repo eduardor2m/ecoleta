@@ -1,43 +1,16 @@
 import { useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-import { collection, addDoc } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Success } from '../components/Success';
 import styles from '../styles/pages/Register.module.scss';
-import { app, database } from '../utils/firebase';
-
-type Entitie = {
-  name: string;
-  adress: {
-    street: string;
-    city: string;
-    state: string;
-    number: number;
-  };
-  items?: {
-    name: string;
-  }[];
-};
 
 const Register: NextPage = () => {
-  const [entities, setEntities] = useState<Entitie>({} as Entitie);
-  const dbInstance = collection(database, 'entities');
-  const handleSaveEntitie = async (e: any) => {
-    e.preventDefault();
-    try {
-      await addDoc(dbInstance, {
-        entities: entities,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log(entities);
-  };
+  const [open, setOpen] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -76,12 +49,7 @@ const Register: NextPage = () => {
           <label htmlFor="name" className={styles.label}>
             Nome da entidade
           </label>
-          <input
-            type="text"
-            id="name"
-            className={styles.inputName}
-            onChange={(e) => setEntities({ ...entities, name: e.target.value })}
-          />
+          <input type="text" id="name" className={styles.inputName} />
           <section className={styles.adressOne}>
             <section className={styles.wrapper}>
               <label htmlFor="adressName" className={styles.label}>
@@ -91,12 +59,6 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressName"
                 className={styles.inputAdressName}
-                onChange={(e) =>
-                  setEntities({
-                    ...entities,
-                    adress: { ...entities.adress, street: e.target.value },
-                  })
-                }
               />
             </section>
             <section className={styles.wrapper}>
@@ -113,15 +75,6 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressNumber"
                 className={styles.inputAdressNumber}
-                onChange={(e) =>
-                  setEntities({
-                    ...entities,
-                    adress: {
-                      ...entities.adress,
-                      number: Number(e.target.value),
-                    },
-                  })
-                }
               />
             </section>
           </section>
@@ -134,12 +87,6 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressCity"
                 className={styles.inputAdressCity}
-                onChange={(e) =>
-                  setEntities({
-                    ...entities,
-                    adress: { ...entities.adress, city: e.target.value },
-                  })
-                }
               />
             </section>
             <section className={styles.wrapper}>
@@ -156,12 +103,6 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressState"
                 className={styles.inputAdressState}
-                onChange={(e) =>
-                  setEntities({
-                    ...entities,
-                    adress: { ...entities.adress, state: e.target.value },
-                  })
-                }
               />
             </section>
           </section>
@@ -230,10 +171,20 @@ const Register: NextPage = () => {
             <button
               type="submit"
               className={styles.button}
-              onClick={(e) => handleSaveEntitie(e)}
+              onClick={(e) => {
+                setOpen(true);
+                e.preventDefault();
+              }}
             >
               Cadastrar ponto de coleta
             </button>
+            {open && (
+              <Success
+                handleClick={() => {
+                  setOpen(false);
+                }}
+              />
+            )}
           </section>
         </form>
       </main>

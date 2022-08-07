@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiExit } from 'react-icons/bi';
 
 import type { NextPage } from 'next';
@@ -8,9 +8,27 @@ import Link from 'next/link';
 
 import { FormSearch } from '../components/FormSearch';
 import styles from '../styles/pages/Home.module.scss';
+import { Data } from './api/points';
 
 const Home: NextPage = () => {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [list, setList] = useState<Data[]>([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      await fetch('http://localhost:3000/api/points')
+        .then((response) => response.json())
+        .then((data) => setList(data));
+    }
+
+    fetchData();
+  }, []);
+
+  const filteredPoints = list.filter((point) => {
+    return point.adress.state.toLowerCase().includes(search.toLowerCase());
+  });
+
   return (
     <div className={styles.container}>
       <Head>
@@ -40,8 +58,17 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         {searchOpen ? (
-          <FormSearch handleClick={() => setSearchOpen(false)} />
+          <>
+            <FormSearch
+              handleClick={() => setSearchOpen(false)}
+              handleCheckName={(e) => {
+                setSearch(e);
+              }}
+            />
+            <h1>{filteredPoints[0]?.adress.city}</h1>
+          </>
         ) : null}
+
         <section className={styles.info}>
           <h1 className={styles.title}>
             Seu marketplace <br /> de coleta de resíduos.
