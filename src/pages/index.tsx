@@ -29,6 +29,10 @@ const Home: NextPage = () => {
     return point.adress.state.toLowerCase().includes(search.toLowerCase());
   });
 
+  const filteredPointsCity = list.filter((point) => {
+    return point.adress.city.toLowerCase().includes(search.toLowerCase());
+  });
+
   return (
     <div className={styles.container}>
       <Head>
@@ -61,11 +65,14 @@ const Home: NextPage = () => {
           <>
             <FormSearch
               handleClick={() => setSearchOpen(false)}
-              handleCheckName={(e) => {
+              handleCheckCity={(name) => setSearch(name)}
+              handleCheckState={(e) => {
                 setSearch(e);
               }}
+              state={filteredPoints.map((point) => point.adress.state)}
+              city={filteredPointsCity.map((point) => point.adress.city)}
             />
-            <h1>{filteredPoints[0]?.adress.city}</h1>
+            {/* <h1>{filteredPoints[0]?.adress.city}</h1> */}
           </>
         ) : null}
 

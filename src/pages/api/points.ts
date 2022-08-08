@@ -37,8 +37,8 @@ export default function handler(
       title: 'Colectoria',
       description: 'Resíduos Eletrôniocos, Lâmpadas',
       adress: {
-        state: 'Rio de Janeiro',
-        city: 'Rio de Janeiro',
+        state: 'Parana',
+        city: 'Curitiba',
         street: 'Rua dos Coqueiros',
         number: '123',
         country: 'Brasil',
@@ -50,8 +50,8 @@ export default function handler(
       title: 'Colectoria',
       description: 'Resíduos Eletrôniocos, Lâmpadas',
       adress: {
-        state: 'Rio de Janeiro',
-        city: 'Rio de Janeiro',
+        state: 'Alagoas',
+        city: 'Maceió',
         street: 'Rua dos Coqueiros',
         number: '123',
         country: 'Brasil',
@@ -63,8 +63,8 @@ export default function handler(
       title: 'Colectoria',
       description: 'Resíduos Eletrôniocos, Lâmpadas',
       adress: {
-        state: 'Rio de Janeiro',
-        city: 'Rio de Janeiro',
+        state: 'São Paulo',
+        city: 'São Paulo',
         street: 'Rua dos Coqueiros',
         number: '123',
         country: 'Brasil',
