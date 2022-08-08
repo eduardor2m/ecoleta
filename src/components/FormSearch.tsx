@@ -3,24 +3,25 @@ import { useState } from 'react';
 import styles from '../styles/components/FormSearch.module.scss';
 
 interface IFormSearchProps {
-  handleClick: () => void;
-  handleCheckState: (name: string) => void;
-  handleCheckCity: (name: string) => void;
-  state: string[];
-  city: string[];
+  handleClickToClose: () => void;
+  handlCheckIfTheStateExists: (letters: string) => void;
+  handleCheckIfTheCityExists: (letters: string) => void;
+  states: string[];
+  cities: string[];
 }
 
 export const FormSearch = ({
-  handleClick,
-  handleCheckState,
-  handleCheckCity,
-  state,
-  city,
+  handleClickToClose,
+  handlCheckIfTheStateExists,
+  handleCheckIfTheCityExists,
+  states,
+  cities,
 }: IFormSearchProps) => {
-  const [selectedState, setSelectedState] = useState(false);
-  const [selectedState2, setSelectedState2] = useState(false);
+  const [selectedInputState, setSelectedInputState] = useState(false);
+  const [selectedInputCity, setSelectedInputCity] = useState(false);
+
   return (
-    <div className={styles.container} onClick={handleClick}>
+    <div className={styles.container} onClick={handleClickToClose}>
       <form
         className={styles.form}
         onClick={(e) => {
@@ -32,14 +33,16 @@ export const FormSearch = ({
           type="text"
           placeholder="Digite a cidade"
           onChange={(e) => {
-            handleCheckCity(e.target.value);
+            handleCheckIfTheCityExists(e.target.value);
+            e.target.value.length > 0
+              ? setSelectedInputCity(true)
+              : setSelectedInputCity(false);
           }}
-          onClick={() => setSelectedState(true)}
-          onBlur={() => setSelectedState(false)}
+          onBlur={() => setSelectedInputCity(false)}
         />
-        {selectedState ? (
+        {selectedInputCity ? (
           <div className={styles.checkboxContainer}>
-            {city?.map((city) => (
+            {cities?.map((city) => (
               <div key={city} className={styles.checkbox}>
                 <h1>{city}</h1>
               </div>
@@ -49,13 +52,19 @@ export const FormSearch = ({
         <input
           type="text"
           placeholder="Digite o estado"
-          onChange={(e) => handleCheckState(e.currentTarget.value)}
-          onClick={() => setSelectedState2(true)}
-          onBlur={() => setSelectedState2(false)}
+          onChange={(e) => {
+            handlCheckIfTheStateExists(e.currentTarget.value);
+            e.target.value.length > 0
+              ? setSelectedInputState(true)
+              : setSelectedInputState(false);
+          }}
+          onBlur={() => {
+            setSelectedInputState(false);
+          }}
         />
-        {selectedState2 ? (
+        {selectedInputState ? (
           <div className={styles.checkboxContainer}>
-            {state?.map((state) => (
+            {states?.map((state) => (
               <div key={state} className={styles.checkbox}>
                 <h1>{state}</h1>
               </div>

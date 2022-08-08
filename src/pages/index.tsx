@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     fetchData();
   }, []);
 
-  const filteredPoints = list.filter((point) => {
+  const filteredPointsState = list.filter((point) => {
     return point.adress.state.toLowerCase().includes(search.toLowerCase());
   });
 
@@ -64,15 +64,14 @@ const Home: NextPage = () => {
         {searchOpen ? (
           <>
             <FormSearch
-              handleClick={() => setSearchOpen(false)}
-              handleCheckCity={(name) => setSearch(name)}
-              handleCheckState={(e) => {
-                setSearch(e);
+              handleClickToClose={() => setSearchOpen(false)}
+              handleCheckIfTheCityExists={(letters) => setSearch(letters)}
+              handlCheckIfTheStateExists={(letters) => {
+                setSearch(letters);
               }}
-              state={filteredPoints.map((point) => point.adress.state)}
-              city={filteredPointsCity.map((point) => point.adress.city)}
+              states={filteredPointsState.map((point) => point.adress.state)}
+              cities={filteredPointsCity.map((point) => point.adress.city)}
             />
-            {/* <h1>{filteredPoints[0]?.adress.city}</h1> */}
           </>
         ) : null}
 
