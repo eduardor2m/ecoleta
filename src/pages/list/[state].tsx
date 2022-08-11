@@ -5,17 +5,20 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { CardPoint } from '../components/CardPoint';
-import styles from '../styles/pages/List.module.scss';
-import { Data } from './api/points';
+import { CardPoint } from '../../components/CardPoint';
+import styles from '../../styles/pages/List.module.scss';
+import { Data } from '../api/points';
 
 const List: NextPage = () => {
+  const router = useRouter();
   const [list, setList] = useState<Data[]>([]);
 
   useEffect(() => {
+    const state = router.query.state as string;
     async function fetchData() {
-      await fetch('http://localhost:3000/api/points')
+      await fetch(`http://localhost:3000/api/point/${state}`)
         .then((response) => response.json())
         .then((data) => setList(data));
     }

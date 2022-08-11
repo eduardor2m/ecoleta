@@ -4,6 +4,7 @@ export type Data = {
   id: string;
   title: string;
   description: string;
+  category?: string;
   adress: {
     state: string;
     city: string;

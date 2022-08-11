@@ -1,24 +1,22 @@
 import { useState } from 'react';
 
+import Link from 'next/link';
+
 import styles from '../styles/components/FormSearch.module.scss';
 
 interface IFormSearchProps {
   handleClickToClose: () => void;
   handlCheckIfTheStateExists: (letters: string) => void;
-  handleCheckIfTheCityExists: (letters: string) => void;
   states: string[];
-  cities: string[];
 }
 
 export const FormSearch = ({
   handleClickToClose,
   handlCheckIfTheStateExists,
-  handleCheckIfTheCityExists,
   states,
-  cities,
 }: IFormSearchProps) => {
   const [selectedInputState, setSelectedInputState] = useState(false);
-  const [selectedInputCity, setSelectedInputCity] = useState(false);
+  const [inputState, setInputState] = useState('Todos');
 
   return (
     <div className={styles.container} onClick={handleClickToClose}>
@@ -31,54 +29,38 @@ export const FormSearch = ({
         <h1>Pontos de Coleta</h1>
         <input
           type="text"
-          placeholder="Digite a cidade"
-          onChange={(e) => {
-            handleCheckIfTheCityExists(e.target.value);
-            e.target.value.length > 0
-              ? setSelectedInputCity(true)
-              : setSelectedInputCity(false);
-          }}
-          onBlur={() => setSelectedInputCity(false)}
-        />
-        {selectedInputCity ? (
-          <div className={styles.checkboxContainer}>
-            {cities?.map((city) => (
-              <div key={city} className={styles.checkbox}>
-                <h1>{city}</h1>
-              </div>
-            ))}
-          </div>
-        ) : null}
-        <input
-          type="text"
           placeholder="Digite o estado"
+          value={inputState}
           onChange={(e) => {
-            handlCheckIfTheStateExists(e.currentTarget.value);
-            e.target.value.length > 0
-              ? setSelectedInputState(true)
-              : setSelectedInputState(false);
-          }}
-          onBlur={() => {
-            setSelectedInputState(false);
+            setInputState(e.target.value);
+            handlCheckIfTheStateExists(e.target.value);
+            inputState === ''
+              ? setSelectedInputState(false)
+              : setSelectedInputState(true);
           }}
         />
         {selectedInputState ? (
           <div className={styles.checkboxContainer}>
             {states?.map((state) => (
-              <div key={state} className={styles.checkbox}>
-                <h1>{state}</h1>
+              <div
+                key={state}
+                className={styles.checkbox}
+                onClick={() => setInputState(state)}
+              >
+                <h1
+                  onClick={() => {
+                    setInputState(state);
+                  }}
+                >
+                  {state}
+                </h1>
               </div>
             ))}
           </div>
         ) : null}
-        <input
-          type="submit"
-          value="Buscar"
-          onClick={(e) => {
-            e.preventDefault();
-            window.location.href = '/list';
-          }}
-        />
+        <Link href="/list/[state]" as={`/list/${inputState}`} passHref>
+          <input type="submit" value="Buscar" />
+        </Link>
       </form>
     </div>
   );

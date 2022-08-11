@@ -8,9 +8,31 @@ import Link from 'next/link';
 
 import { Success } from '../components/Success';
 import styles from '../styles/pages/Register.module.scss';
+import { Data } from './api/points';
 
 const Register: NextPage = () => {
   const [open, setOpen] = useState(false);
+  const [point, setPoint] = useState<Data>({} as Data);
+
+  function handleAddPoint(data: Data) {
+    const fetchData = async () => {
+      await fetch('http://localhost:3000/api/point/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: data.title.length.toString() + new Date().getTime().toString(),
+          title: data.title,
+          description: 'data.description',
+          adress: data.adress,
+          image: '/assets/imageTalk.svg',
+        }),
+      });
+    };
+
+    fetchData();
+  }
 
   return (
     <div className={styles.container}>
@@ -49,7 +71,12 @@ const Register: NextPage = () => {
           <label htmlFor="name" className={styles.label}>
             Nome da entidade
           </label>
-          <input type="text" id="name" className={styles.inputName} />
+          <input
+            type="text"
+            id="name"
+            className={styles.inputName}
+            onChange={(e) => setPoint({ ...point, title: e.target.value })}
+          />
           <section className={styles.adressOne}>
             <section className={styles.wrapper}>
               <label htmlFor="adressName" className={styles.label}>
@@ -59,6 +86,12 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressName"
                 className={styles.inputAdressName}
+                onChange={(e) =>
+                  setPoint({
+                    ...point,
+                    adress: { ...point.adress, street: e.target.value },
+                  })
+                }
               />
             </section>
             <section className={styles.wrapper}>
@@ -72,9 +105,15 @@ const Register: NextPage = () => {
                 Número
               </label>
               <input
-                type="text"
+                type="number"
                 id="adressNumber"
                 className={styles.inputAdressNumber}
+                onChange={(e) =>
+                  setPoint({
+                    ...point,
+                    adress: { ...point.adress, number: e.target.value },
+                  })
+                }
               />
             </section>
           </section>
@@ -87,6 +126,12 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressCity"
                 className={styles.inputAdressCity}
+                onChange={(e) =>
+                  setPoint({
+                    ...point,
+                    adress: { ...point.adress, city: e.target.value },
+                  })
+                }
               />
             </section>
             <section className={styles.wrapper}>
@@ -103,6 +148,12 @@ const Register: NextPage = () => {
                 type="text"
                 id="adressState"
                 className={styles.inputAdressState}
+                onChange={(e) =>
+                  setPoint({
+                    ...point,
+                    adress: { ...point.adress, state: e.target.value },
+                  })
+                }
               />
             </section>
           </section>
@@ -112,7 +163,19 @@ const Register: NextPage = () => {
           </section>
 
           <section className={styles.items}>
-            <div className={styles.item}>
+            <div
+              className={styles.item}
+              onClick={() =>
+                setPoint({
+                  ...point,
+                  category: 'lampadas',
+                })
+              }
+              style={{
+                backgroundColor:
+                  point.category === 'lampadas' ? '#34CB79' : '#fff',
+              }}
+            >
               <Image
                 src="/assets/lamps.svg"
                 alt="Lâmpadas"
@@ -121,7 +184,19 @@ const Register: NextPage = () => {
               />
               <span className={styles.textSpan}>Lâmpadas</span>
             </div>
-            <div className={styles.item}>
+            <div
+              className={styles.item}
+              onClick={() =>
+                setPoint({
+                  ...point,
+                  category: 'pilhas-e-baterias',
+                })
+              }
+              style={{
+                backgroundColor:
+                  point.category === 'pilhas-e-baterias' ? '#34CB79' : '#fff',
+              }}
+            >
               <Image
                 src="/assets/batteries.svg"
                 alt="Pilhas e Baterias"
@@ -130,7 +205,19 @@ const Register: NextPage = () => {
               />
               <span className={styles.textSpan}>Pilhas e Baterias</span>
             </div>
-            <div className={styles.item}>
+            <div
+              className={styles.item}
+              onClick={() =>
+                setPoint({
+                  ...point,
+                  category: 'papeis-e-papelao',
+                })
+              }
+              style={{
+                backgroundColor:
+                  point.category === 'papeis-e-papelao' ? '#34CB79' : '#fff',
+              }}
+            >
               <Image
                 src="/assets/papers.svg"
                 alt="Papéis e Papelão"
@@ -139,7 +226,19 @@ const Register: NextPage = () => {
               />
               <span className={styles.textSpan}>Papéis e Papelão</span>
             </div>
-            <div className={styles.item}>
+            <div
+              className={styles.item}
+              onClick={() =>
+                setPoint({
+                  ...point,
+                  category: 'eletronicos',
+                })
+              }
+              style={{
+                backgroundColor:
+                  point.category === 'eletronicos' ? '#34CB79' : '#fff',
+              }}
+            >
               <Image
                 src="/assets/electronics.svg"
                 alt="Resíduos Eletrônicos"
@@ -148,7 +247,19 @@ const Register: NextPage = () => {
               />
               <span className={styles.textSpan}>Resíduos Eletrônicos</span>
             </div>
-            <div className={styles.item}>
+            <div
+              className={styles.item}
+              onClick={() =>
+                setPoint({
+                  ...point,
+                  category: 'organicos',
+                })
+              }
+              style={{
+                backgroundColor:
+                  point.category === 'organicos' ? '#34CB79' : '#fff',
+              }}
+            >
               <Image
                 src="/assets/organic.svg"
                 alt="Resíduos Orgânicos"
@@ -157,7 +268,19 @@ const Register: NextPage = () => {
               />
               <span className={styles.textSpan}>Resíduos Orgânicos</span>
             </div>
-            <div className={styles.item}>
+            <div
+              className={styles.item}
+              onClick={() =>
+                setPoint({
+                  ...point,
+                  category: 'oleo-de-cozinha',
+                })
+              }
+              style={{
+                backgroundColor:
+                  point.category === 'oleo-de-cozinha' ? '#34CB79' : '#fff',
+              }}
+            >
               <Image
                 src="/assets/oil.svg"
                 alt="Óleo de Cozinha"
@@ -173,6 +296,8 @@ const Register: NextPage = () => {
               className={styles.button}
               onClick={(e) => {
                 setOpen(true);
+                // console.log(point);
+                handleAddPoint(point);
                 e.preventDefault();
               }}
             >
