@@ -2,15 +2,15 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
-import { Data } from '../pages/api/points';
+import { Entity } from '../pages/api/points';
 import styles from '../styles/components/FormRegister.module.scss';
 import { Success } from './Success';
 
 export const FormRegister = () => {
   const [open, setOpen] = useState(false);
-  const [point, setPoint] = useState<Data>({} as Data);
+  const [point, setPoint] = useState<Entity>({} as Entity);
 
-  function handleAddPoint(data: Data) {
+  function handleAddPoint(data: Entity) {
     const fetchData = async () => {
       await fetch('http://localhost:3000/api/point/add', {
         method: 'POST',
@@ -18,10 +18,14 @@ export const FormRegister = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: data.title.length.toString() + new Date().getTime().toString(),
-          title: data.title,
-          description: 'data.description',
-          adress: data.adress,
+          id: new Date().getTime().toString(),
+          name: data.name,
+          adress: {
+            state: data.adress.state,
+            city: data.adress.city,
+            street: data.adress.street,
+            number: data.adress.number,
+          },
           image: '/assets/imageTalk.svg',
         }),
       });
@@ -43,7 +47,7 @@ export const FormRegister = () => {
         type="text"
         id="name"
         className={styles.inputName}
-        onChange={(e) => setPoint({ ...point, title: e.target.value })}
+        onChange={(e) => setPoint({ ...point, name: e.target.value })}
       />
       <section className={styles.adressOne}>
         <section className={styles.wrapper}>

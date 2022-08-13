@@ -1,1 +1,61 @@
-[{"id":"1","title":"Colectoria","description":"Resíduos Eletrôniocos, Lâmpadas","adress":{"state":"Rio de Janeiro","city":"Rio de Janeiro","street":"Rua dos Coqueiros","number":"123","country":"Brasil"},"image":"/assets/imageTalk.svg"},{"id":"2","title":"Colectoria","description":"Resíduos Eletrôniocos, Lâmpadas","adress":{"state":"Parana","city":"Curitiba","street":"Rua dos Coqueiros","number":"123","country":"Brasil"},"image":"/assets/imageBucket.svg"},{"id":"3","title":"Colectoria","description":"Resíduos Eletrôniocos, Lâmpadas","adress":{"state":"Alagoas","city":"Maceió","street":"Rua dos Coqueiros","number":"123","country":"Brasil"},"image":"/assets/imageBucket.svg"},{"id":"131660433337351","title":"Ecoleta Teste","description":"data.description","image":"/assets/imageTalk.svg","adress":{"street":"Povoado Olho D'Água","number":"1","city":"Junqueiro","state":"Estado"}}]
+[
+  {
+    "id": "1",
+    "name": "Colectoria",
+    "category": "Resíduos Eletrôniocos, Lâmpadas",
+    "adress": {
+      "state": "Rio de Janeiro",
+      "city": "Rio de Janeiro",
+      "street": "Rua dos Coqueiros",
+      "number": "123"
+    },
+    "image": "/assets/imageTalk.svg"
+  },
+  {
+    "id": "2",
+    "name": "Colectoria",
+    "category": "Resíduos Eletrôniocos, Lâmpadas",
+    "adress": {
+      "state": "Parana",
+      "city": "Curitiba",
+      "street": "Rua dos Coqueiros",
+      "number": "123"
+    },
+    "image": "/assets/imageBucket.svg"
+  },
+  {
+    "id": "3",
+    "name": "Colectoria",
+    "category": "Resíduos Eletrôniocos, Lâmpadas",
+    "adress": {
+      "state": "Alagoas",
+      "city": "Maceió",
+      "street": "Rua dos Coqueiros",
+      "number": "123"
+    },
+    "image": "/assets/imageBucket.svg"
+  },
+  {
+    "id": "131660433337351",
+    "name": "Ecoleta Teste",
+    "category": "data.description",
+    "image": "/assets/imageTalk.svg",
+    "adress": {
+      "street": "Povoado Olho D'Água",
+      "number": "1",
+      "city": "Junqueiro",
+      "state": "Estado"
+    }
+  },
+  {
+    "id": "1660434599947",
+    "name": "ewgrhr",
+    "image": "/assets/imageTalk.svg",
+    "adress": {
+      "state": "dghjdgjgdfa",
+      "city": "hetdhdgh",
+      "street": "fshrdfghnjdfgh",
+      "number": "55"
+    }
+  }
+]

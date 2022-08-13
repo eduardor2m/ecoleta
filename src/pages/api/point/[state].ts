@@ -2,25 +2,24 @@ import fs from 'fs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import points from '../../../database/points.json';
-import { Data } from '../points';
+import { Entity } from '../points';
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data[] | string | any>
+  res: NextApiResponse<Entity[] | string | any>
 ) {
   if (req.method === 'GET') {
     const pointsFormatted = points.map((point) => {
       return {
         id: point.id,
-        title: point.title,
-        description: point.description,
+        name: point.name,
+        category: point.category,
         image: point.image,
         adress: {
           state: point.adress.state,
           city: point.adress.city,
           street: point.adress.street,
           number: point.adress.number,
-          country: point.adress.country,
         },
       };
     });
@@ -42,11 +41,11 @@ export default function handler(
   }
 
   if (req.method === 'POST') {
-    const { id, title, description, image, adress } = req.body;
+    const { id, name, category, image, adress } = req.body;
     const point = {
       id,
-      title,
-      description,
+      name,
+      category,
       image,
       adress,
     };

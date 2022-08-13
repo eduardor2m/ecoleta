@@ -8,24 +8,24 @@ import Image from 'next/image';
 import { FormSearch } from '../components/FormSearch';
 import { NavBar } from '../components/NavBar';
 import styles from '../styles/pages/Home.module.scss';
-import { Data } from './api/points';
+import { Entity } from './api/points';
 
 const Home: NextPage = () => {
   const [searchOpen, setSearchOpen] = useState(false);
-  const [list, setList] = useState<Data[]>([]);
+  const [collectionPoints, setCollectionPoints] = useState<Entity[]>([]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       await fetch('http://localhost:3000/api/points')
         .then((response) => response.json())
-        .then((data) => setList(data));
+        .then((data) => setCollectionPoints(data));
     }
 
     fetchData();
   }, []);
 
-  const filteredPointsState = list.filter((point) => {
+  const filteredPointsState = collectionPoints.filter((point) => {
     return point.adress.state.toLowerCase().includes(search.toLowerCase());
   });
 

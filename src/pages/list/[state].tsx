@@ -7,18 +7,18 @@ import { useRouter } from 'next/router';
 import { CardPoint } from '../../components/CardPoint';
 import { NavBar } from '../../components/NavBar';
 import styles from '../../styles/pages/List.module.scss';
-import { Data } from '../api/points';
+import { Entity } from '../api/points';
 
 const List: NextPage = () => {
   const router = useRouter();
-  const [list, setList] = useState<Data[]>([]);
+  const [collectionPoints, setCollectionPoints] = useState<Entity[]>([]);
 
   useEffect(() => {
     const state = router.query.state as string;
     async function fetchData() {
       await fetch(`http://localhost:3000/api/point/${state}`)
         .then((response) => response.json())
-        .then((data) => setList(data));
+        .then((data) => setCollectionPoints(data));
     }
 
     fetchData();
@@ -43,16 +43,16 @@ const List: NextPage = () => {
       <main className={styles.main}>
         <section className={styles.wrapperQuantityPoints}>
           <div className={styles.quantityPoints}>
-            <span>{list.length} Pontos Encontrados</span>
+            <span>{collectionPoints.length} Pontos Encontrados</span>
           </div>
         </section>
 
         <section className={styles.content}>
-          {list.map((point) => (
+          {collectionPoints.map((point) => (
             <CardPoint
               key={point.id}
-              category={point.description}
-              title={point.title}
+              category={point.category}
+              name={point.name}
               description={
                 point.adress.city +
                 ', ' +

@@ -4,14 +4,14 @@ import styles from '../styles/components/CardPoint.module.scss';
 
 interface IFormSearchProps {
   category: string;
-  title: string;
+  name: string;
   description: string;
   imageURL: string;
 }
 
 export const CardPoint = ({
   category,
-  title,
+  name,
   description,
   imageURL,
 }: IFormSearchProps) => {
@@ -20,7 +20,7 @@ export const CardPoint = ({
       <div className={styles.cardImage}>
         <Image
           src={imageURL}
-          alt={title}
+          alt={name}
           layout="fill"
           width={150}
           height={150}
@@ -31,7 +31,7 @@ export const CardPoint = ({
       </div>
       <div className={styles.cardContent}>
         <h1>{category}</h1>
-        <h3>{title}</h3>
+        <h3>{name}</h3>
         <p>{description}</p>
       </div>
     </div>
