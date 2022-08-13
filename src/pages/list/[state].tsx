@@ -24,7 +24,7 @@ const List: NextPage = () => {
     }
 
     fetchData();
-  }, []);
+  });
 
   return (
     <div className={styles.container}>
