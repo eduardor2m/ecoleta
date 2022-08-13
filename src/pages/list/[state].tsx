@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { CardPoint } from '../../components/CardPoint';
+import { NavBar } from '../../components/NavBar';
 import styles from '../../styles/pages/List.module.scss';
 import { Data } from '../api/points';
 
@@ -34,32 +32,21 @@ const List: NextPage = () => {
         <link rel="icon" href="/assets/icon.svg" />
       </Head>
 
-      <nav className={styles.navbar}>
-        <div className={styles.wrapperLinks}>
-          <Link href="/">
-            <a href="/">
-              <Image
-                src="/assets/logo.svg"
-                alt="Ecoleta"
-                width={150}
-                height={50}
-              />
-            </a>
-          </Link>
-
-          <Link href="/">
-            <a href="/" className={styles.link}>
-              <AiOutlineArrowLeft color="#34CB79" size={24} />
-              <span className={styles.textLink}>Voltar para home</span>
-            </a>
-          </Link>
-        </div>
-        <p>
-          {list.length} pontos <span>encontrados</span>
-        </p>
-      </nav>
+      <NavBar
+        data={{
+          icon: 'arrowLeft',
+          description: 'Voltar para home',
+          href: '/',
+        }}
+      />
 
       <main className={styles.main}>
+        <section className={styles.wrapperQuantityPoints}>
+          <div className={styles.quantityPoints}>
+            <span>{list.length} Pontos Encontrados</span>
+          </div>
+        </section>
+
         <section className={styles.content}>
           {list.map((point) => (
             <CardPoint

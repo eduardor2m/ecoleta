@@ -6,6 +6,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { NavBar } from '../components/NavBar';
 import { Success } from '../components/Success';
 import styles from '../styles/pages/Register.module.scss';
 import { Data } from './api/points';
@@ -42,25 +43,13 @@ const Register: NextPage = () => {
         <link rel="icon" href="/assets/icon.svg" />
       </Head>
 
-      <nav className={styles.navbar}>
-        <Link href="/">
-          <a href="/">
-            <Image
-              src="/assets/logo.svg"
-              alt="Ecoleta"
-              width={150}
-              height={50}
-            />
-          </a>
-        </Link>
-
-        <Link href="/">
-          <a href="/" className={styles.link}>
-            <AiOutlineArrowLeft color="#34CB79" size={24} />
-            <span className={styles.textLink}>Voltar para home</span>
-          </a>
-        </Link>
-      </nav>
+      <NavBar
+        data={{
+          icon: 'arrowLeft',
+          description: 'Voltar para home',
+          href: '/',
+        }}
+      />
 
       <main className={styles.main}>
         <form className={styles.form}>

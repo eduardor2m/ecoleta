@@ -1,0 +1,26 @@
+.navbar {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 40px 0px;
+
+  .wrapperLinks {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .link {
+      display: flex;
+      font-size: 18px;
+      align-items: center;
+
+      .textLink {
+        margin-left: 10px;
+        color: var(--title);
+        font-weight: bold;
+      }
+    }
+
+  }
+}
