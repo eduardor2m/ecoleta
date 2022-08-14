@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { BiExit } from 'react-icons/bi';
 
+import { collection, getDocs } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 
 import { FormSearch } from '../components/FormSearch';
 import { NavBar } from '../components/NavBar';
+import { db } from '../services/firebase';
 import styles from '../styles/pages/Home.module.scss';
 import { Entity } from './api/points';
 
@@ -15,14 +17,24 @@ const Home: NextPage = () => {
   const [collectionPoints, setCollectionPoints] = useState<Entity[]>([]);
   const [search, setSearch] = useState('');
 
+  const dbInstance = collection(db, 'points');
+
   useEffect(() => {
-    async function fetchData() {
-      await fetch('http://localhost:3000/api/points')
-        .then((response) => response.json())
-        .then((data) => setCollectionPoints(data));
+    function getPoints() {
+      getDocs(dbInstance)
+        .then((data) => {
+          setCollectionPoints(
+            data.docs.map((item: any) => {
+              return { ...item.data() };
+            })
+          );
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
 
-    fetchData();
+    getPoints();
   }, []);
 
   const filteredPointsState = collectionPoints.filter((point) => {

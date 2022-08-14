@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
+import { collection, getDocs } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { CardPoint } from '../../components/CardPoint';
 import { NavBar } from '../../components/NavBar';
+import { db } from '../../services/firebase';
 import styles from '../../styles/pages/List.module.scss';
 import { Entity } from '../api/points';
 
@@ -13,16 +16,31 @@ const List: NextPage = () => {
   const router = useRouter();
   const [collectionPoints, setCollectionPoints] = useState<Entity[]>([]);
 
+  const dbInstance = collection(db, 'points');
+
   useEffect(() => {
     const state = router.query.state as string;
-    async function fetchData() {
-      await fetch(`http://localhost:3000/api/point/${state}`)
-        .then((response) => response.json())
-        .then((data) => setCollectionPoints(data));
+
+    function getPointsByState() {
+      getDocs(dbInstance)
+        .then((data) => {
+          setCollectionPoints(
+            data.docs
+              .map((item: any) => {
+                return { ...item.data() };
+              })
+              .filter((point) => {
+                return point.adress.state === state;
+              })
+          );
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
 
-    fetchData();
-  });
+    getPointsByState();
+  }, [router.query.state]);
 
   return (
     <div className={styles.container}>

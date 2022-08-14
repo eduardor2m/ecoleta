@@ -30,8 +30,8 @@ export const CardPoint = ({
         />
       </div>
       <div className={styles.cardContent}>
-        <h1>{category}</h1>
-        <h3>{name}</h3>
+        <h1>{name}</h1>
+        <h3>{category}</h3>
         <p>{description}</p>
       </div>
     </div>

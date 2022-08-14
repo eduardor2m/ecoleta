@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
+import { collection, addDoc } from 'firebase/firestore';
 import Image from 'next/image';
 
 import { Entity } from '../pages/api/points';
+import { db } from '../services/firebase';
 import styles from '../styles/components/FormRegister.module.scss';
 import { Success } from './Success';
 
@@ -10,28 +12,33 @@ export const FormRegister = () => {
   const [open, setOpen] = useState(false);
   const [point, setPoint] = useState<Entity>({} as Entity);
 
-  function handleAddPoint(data: Entity) {
-    const fetchData = async () => {
-      await fetch('http://localhost:3000/api/point/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: new Date().getTime().toString(),
-          name: data.name,
-          adress: {
-            state: data.adress.state,
-            city: data.adress.city,
-            street: data.adress.street,
-            number: data.adress.number,
-          },
-          image: '/assets/imageTalk.svg',
-        }),
-      });
+  const dbInstance = collection(db, 'points');
+
+  function handleAddPoint() {
+    const pointFormatted = {
+      id: new Date().getTime().toString(),
+      name: point.name,
+      category: point.category,
+      adress: {
+        state: point.adress.state,
+        city: point.adress.city,
+        street: point.adress.street,
+        number: point.adress.number,
+      },
+      image: '/assets/imageTalk.svg',
     };
 
-    fetchData();
+    function savePoint() {
+      addDoc(dbInstance, pointFormatted)
+        .then(() => {
+          setOpen(true);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+
+    savePoint();
   }
 
   return (
@@ -267,7 +274,7 @@ export const FormRegister = () => {
           className={styles.button}
           onClick={(e) => {
             setOpen(true);
-            handleAddPoint(point);
+            handleAddPoint();
             e.preventDefault();
           }}
         >
