@@ -12,14 +12,13 @@ type IUser = {
   password: string;
 };
 
-const Login: NextPage = () => {
+const SignIn: NextPage = () => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const { login, logout } = useUser();
-
+  const { createUser } = useUser();
   function handleLogin(e: any) {
     e.preventDefault();
-    // login(user);
-    logout();
+
+    createUser(user);
   }
 
   return (
@@ -39,7 +38,7 @@ const Login: NextPage = () => {
 
       <main className={styles.main}>
         <form className={styles.form}>
-          <h1>Faça seu login</h1>
+          <h1>Faça seu cadastro</h1>
           <input
             type="text"
             placeholder="E-mail"
@@ -56,7 +55,7 @@ const Login: NextPage = () => {
               handleLogin(e);
             }}
           >
-            Entrar
+            Cadastrar
           </button>
         </form>
       </main>
@@ -64,4 +63,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default SignIn;

@@ -10,7 +10,34 @@ import { FormSearch } from '../components/FormSearch';
 import { NavBar } from '../components/NavBar';
 import { db } from '../services/firebase';
 import styles from '../styles/pages/Home.module.scss';
-import { Entity } from './api/points';
+import { Entity } from '../types/entity';
+
+export const data: Entity[] = [
+  {
+    id: '1',
+    name: 'Point A',
+    category: 'Description of point A',
+    adress: {
+      street: 'Rua A',
+      number: '123',
+      city: 'São Paulo',
+      state: 'SP',
+    },
+    image: '/assets/imageBucket.svg',
+  },
+  {
+    id: '2',
+    name: 'Point B',
+    category: 'Description of point B',
+    adress: {
+      street: 'Rua B',
+      number: '123',
+      city: 'Maceió',
+      state: 'AL',
+    },
+    image: '/assets/imageTalk.svg',
+  },
+];
 
 const Home: NextPage = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -20,21 +47,23 @@ const Home: NextPage = () => {
   const dbInstance = collection(db, 'points');
 
   useEffect(() => {
-    function getPoints() {
-      getDocs(dbInstance)
-        .then((data) => {
-          setCollectionPoints(
-            data.docs.map((item: any) => {
-              return { ...item.data() };
-            })
-          );
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+    // function getPoints() {
+    //   getDocs(dbInstance)
+    //     .then((data) => {
+    //       setCollectionPoints(
+    //         data.docs.map((item: any) => {
+    //           return { ...item.data() };
+    //         })
+    //       );
+    //     })
+    //     .catch((err) => {
+    //       alert(err);
+    //     });
+    // }
 
-    getPoints();
+    // getPoints();
+
+    setCollectionPoints(data);
   }, []);
 
   const filteredPointsState = collectionPoints.filter((point) => {

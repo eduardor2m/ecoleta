@@ -1,11 +1,22 @@
+import { useEffect } from 'react';
+
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import { FormRegister } from '../components/FormRegister';
 import { NavBar } from '../components/NavBar';
+import { useUser } from '../hooks/useUser';
 import styles from '../styles/pages/Register.module.scss';
 
 const Register: NextPage = () => {
+  const { user } = useUser();
+  useEffect(() => {
+    if (user.email) {
+      console.log('user', user);
+    } else {
+      window.location.href = '/signin';
+    }
+  }, []);
   return (
     <div className={styles.container}>
       <Head>

@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import Image from 'next/image';
 
-import { Entity } from '../pages/api/points';
+import { data } from '../pages';
 import { db } from '../services/firebase';
 import styles from '../styles/components/FormRegister.module.scss';
+import { Entity } from '../types/entity';
 import { Success } from './Success';
 
 export const FormRegister = () => {
@@ -28,17 +29,19 @@ export const FormRegister = () => {
       image: '/assets/imageTalk.svg',
     };
 
-    function savePoint() {
-      addDoc(dbInstance, pointFormatted)
-        .then(() => {
-          setOpen(true);
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+    // function savePoint() {
+    //   addDoc(dbInstance, pointFormatted)
+    //     .then(() => {
+    //       setOpen(true);
+    //     })
+    //     .catch((err) => {
+    //       alert(err);
+    //     });
+    // }
 
-    savePoint();
+    // savePoint();
+
+    data.push(pointFormatted);
   }
 
   return (

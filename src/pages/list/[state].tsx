@@ -10,7 +10,9 @@ import { CardPoint } from '../../components/CardPoint';
 import { NavBar } from '../../components/NavBar';
 import { db } from '../../services/firebase';
 import styles from '../../styles/pages/List.module.scss';
-import { Entity } from '../api/points';
+import { Entity } from '../../types/entity';
+
+import { data } from '..';
 
 const List: NextPage = () => {
   const router = useRouter();
@@ -21,25 +23,31 @@ const List: NextPage = () => {
   useEffect(() => {
     const state = router.query.state as string;
 
-    function getPointsByState() {
-      getDocs(dbInstance)
-        .then((data) => {
-          setCollectionPoints(
-            data.docs
-              .map((item: any) => {
-                return { ...item.data() };
-              })
-              .filter((point) => {
-                return point.adress.state === state;
-              })
-          );
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+    // function getPointsByState() {
+    //   getDocs(dbInstance)
+    //     .then((data) => {
+    //       setCollectionPoints(
+    //         data.docs
+    //           .map((item: any) => {
+    //             return { ...item.data() };
+    //           })
+    //           .filter((point) => {
+    //             return point.adress.state === state;
+    //           })
+    //       );
+    //     })
+    //     .catch((err) => {
+    //       alert(err);
+    //     });
+    // }
 
-    getPointsByState();
+    // getPointsByState();
+
+    setCollectionPoints(
+      data.filter((point) => {
+        return point.adress.state === state;
+      })
+    );
   }, [router.query.state]);
 
   return (
