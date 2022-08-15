@@ -1,25 +1,27 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import type { NextPage } from 'next';
 import Head from 'next/head';
+// import Link from 'next/link';
 
 import { NavBar } from '../components/NavBar';
-import { useUser } from '../hooks/useUser';
+// // import { useUser } from '../hooks/useUser';
 import styles from '../styles/pages/Login.module.scss';
 
-type IUser = {
-  email: string;
-  password: string;
-};
+// type IUser = {
+//   email: string;
+//   password: string;
+// };
 
 const SignIn: NextPage = () => {
-  const [user, setUser] = useState<IUser>({} as IUser);
-  const { createUser } = useUser();
-  function handleLogin(e: any) {
-    e.preventDefault();
+  // const [user, setUser] = useState<IUser>({} as IUser);
+  // // const { createUser } = useUser();
+  // function handleLogin(e: any) {
+  //   e.preventDefault();
 
-    createUser(user);
-  }
+  //   // createUser(user);
+  //   alert('Login');
+  // }
 
   return (
     <div className={styles.container}>
@@ -30,12 +32,13 @@ const SignIn: NextPage = () => {
       </Head>
       <NavBar
         data={{
-          icon: 'exit',
+          icon: 'arrowLeft',
           description: 'Voltar para home',
           href: '/',
         }}
       />
-
+      <h1>Em Desenvolvimento</h1>
+      {/* 
       <main className={styles.main}>
         <form className={styles.form}>
           <h1>Faça seu cadastro</h1>
@@ -57,8 +60,11 @@ const SignIn: NextPage = () => {
           >
             Cadastrar
           </button>
+          <Link href="/login">
+            <a href="/login">Ir para tela de login</a>
+          </Link>
         </form>
-      </main>
+      </main> */}
     </div>
   );
 };

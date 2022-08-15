@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 
 import { NavBar } from '../components/NavBar';
 import { useUser } from '../hooks/useUser';
@@ -14,12 +15,12 @@ type IUser = {
 
 const Login: NextPage = () => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const { login, logout } = useUser();
+  const { login } = useUser();
 
-  function handleLogin(e: any) {
+  async function handleLogin(e: any) {
     e.preventDefault();
-    // login(user);
-    logout();
+    login(user);
+    window.location.href = '/register';
   }
 
   return (
@@ -31,7 +32,7 @@ const Login: NextPage = () => {
       </Head>
       <NavBar
         data={{
-          icon: 'exit',
+          icon: 'arrowLeft',
           description: 'Voltar para home',
           href: '/',
         }}
@@ -58,6 +59,9 @@ const Login: NextPage = () => {
           >
             Entrar
           </button>
+          <Link href="/signin">
+            <a href="/signin">Ir para tela de cadastro</a>
+          </Link>
         </form>
       </main>
     </div>

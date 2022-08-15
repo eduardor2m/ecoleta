@@ -10,13 +10,13 @@ import styles from '../styles/pages/Register.module.scss';
 
 const Register: NextPage = () => {
   const { user } = useUser();
+
   useEffect(() => {
-    if (user.email) {
-      console.log('user', user);
-    } else {
-      window.location.href = '/signin';
+    if (!user.email) {
+      window.location.href = '/login';
     }
   }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -30,6 +30,8 @@ const Register: NextPage = () => {
           icon: 'arrowLeft',
           description: 'Voltar para home',
           href: '/',
+          logout: true,
+          deleteUser: true,
         }}
       />
 
