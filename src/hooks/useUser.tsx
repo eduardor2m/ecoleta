@@ -18,7 +18,6 @@ interface UserContextData {
   createUser: (user: IUser) => void;
   login: (user: IUser) => void;
   logout: () => void;
-  deleteUser: () => void;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
@@ -68,17 +67,14 @@ export const UserProvider: React.FC<IUserProviderProps> = ({
     if (user.email && user.password) {
       signInWithEmailAndPassword(auth, user.email, user.password!)
         .then((userCredential) => {
+          const { email } = userCredential.user;
           setUser({
-            email: userCredential.user.email!,
+            email: email!,
           });
-          localStorage.setItem(
-            '@userAuth',
-            JSON.stringify(userCredential.user.email)
-          );
-          alert('Usuário logado com sucesso!');
+          localStorage.setItem('@userAuth', JSON.stringify(email!));
         })
         .catch((error) => {
-          alert('Erro ao logar usuário!');
+          alert('Erro ao logar!');
           alert(error.message);
         });
     } else {
@@ -93,17 +89,8 @@ export const UserProvider: React.FC<IUserProviderProps> = ({
     alert('Usuário deslogado com sucesso!');
   }
 
-  function deleteUser() {
-    auth.currentUser?.delete();
-    localStorage.removeItem('@userAuth');
-    setUser({} as IUser);
-    alert('Usuário deletado com sucesso!');
-  }
-
   return (
-    <UserContext.Provider
-      value={{ user, createUser, login, logout, deleteUser }}
-    >
+    <UserContext.Provider value={{ user, createUser, login, logout }}>
       {children}
     </UserContext.Provider>
   );

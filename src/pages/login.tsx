@@ -20,7 +20,6 @@ const Login: NextPage = () => {
   async function handleLogin(e: any) {
     e.preventDefault();
     login(user);
-    window.location.href = '/register';
   }
 
   return (

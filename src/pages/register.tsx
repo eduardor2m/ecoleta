@@ -15,7 +15,7 @@ const Register: NextPage = () => {
     if (!user.email) {
       window.location.href = '/login';
     }
-  }, []);
+  }, [user]);
 
   return (
     <div className={styles.container}>

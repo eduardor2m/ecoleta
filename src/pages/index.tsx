@@ -1,69 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { BiExit } from 'react-icons/bi';
 
-import { collection, getDocs } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 
 import { FormSearch } from '../components/FormSearch';
 import { NavBar } from '../components/NavBar';
-import { db } from '../services/firebase';
+import { usePoint } from '../hooks/usePoint';
 import styles from '../styles/pages/Home.module.scss';
 import { Entity } from '../types/entity';
-
-export const data: Entity[] = [
-  {
-    id: '1',
-    name: 'Point A',
-    category: 'Description of point A',
-    adress: {
-      street: 'Rua A',
-      number: '123',
-      city: 'São Paulo',
-      state: 'SP',
-    },
-    image: '/assets/imageBucket.svg',
-  },
-  {
-    id: '2',
-    name: 'Point B',
-    category: 'Description of point B',
-    adress: {
-      street: 'Rua B',
-      number: '123',
-      city: 'Maceió',
-      state: 'AL',
-    },
-    image: '/assets/imageTalk.svg',
-  },
-];
 
 const Home: NextPage = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [collectionPoints, setCollectionPoints] = useState<Entity[]>([]);
   const [search, setSearch] = useState('');
 
-  const dbInstance = collection(db, 'points');
+  const { listPoints } = usePoint();
 
   useEffect(() => {
-    // function getPoints() {
-    //   getDocs(dbInstance)
-    //     .then((data) => {
-    //       setCollectionPoints(
-    //         data.docs.map((item: any) => {
-    //           return { ...item.data() };
-    //         })
-    //       );
-    //     })
-    //     .catch((err) => {
-    //       alert(err);
-    //     });
-    // }
-
-    // getPoints();
-
-    setCollectionPoints(data);
+    setCollectionPoints(listPoints());
   }, []);
 
   const filteredPointsState = collectionPoints.filter((point) => {

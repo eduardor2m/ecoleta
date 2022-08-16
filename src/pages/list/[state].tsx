@@ -1,53 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
-import { collection, getDocs } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { CardPoint } from '../../components/CardPoint';
 import { NavBar } from '../../components/NavBar';
-import { db } from '../../services/firebase';
+import { usePoint } from '../../hooks/usePoint';
 import styles from '../../styles/pages/List.module.scss';
 import { Entity } from '../../types/entity';
-
-import { data } from '..';
 
 const List: NextPage = () => {
   const router = useRouter();
   const [collectionPoints, setCollectionPoints] = useState<Entity[]>([]);
 
-  const dbInstance = collection(db, 'points');
+  const { listPointsByState } = usePoint();
 
   useEffect(() => {
     const state = router.query.state as string;
-
-    // function getPointsByState() {
-    //   getDocs(dbInstance)
-    //     .then((data) => {
-    //       setCollectionPoints(
-    //         data.docs
-    //           .map((item: any) => {
-    //             return { ...item.data() };
-    //           })
-    //           .filter((point) => {
-    //             return point.adress.state === state;
-    //           })
-    //       );
-    //     })
-    //     .catch((err) => {
-    //       alert(err);
-    //     });
-    // }
-
-    // getPointsByState();
-
-    setCollectionPoints(
-      data.filter((point) => {
-        return point.adress.state === state;
-      })
-    );
+    setCollectionPoints(listPointsByState(state));
   }, [router.query.state]);
 
   return (

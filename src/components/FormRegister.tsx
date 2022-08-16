@@ -1,10 +1,8 @@
 import { useState } from 'react';
 
-import { collection, addDoc } from 'firebase/firestore';
 import Image from 'next/image';
 
-import { data } from '../pages';
-import { db } from '../services/firebase';
+import { usePoint } from '../hooks/usePoint';
 import styles from '../styles/components/FormRegister.module.scss';
 import { Entity } from '../types/entity';
 import { Success } from './Success';
@@ -13,35 +11,11 @@ export const FormRegister = () => {
   const [open, setOpen] = useState(false);
   const [point, setPoint] = useState<Entity>({} as Entity);
 
-  const dbInstance = collection(db, 'points');
+  const { createPoint } = usePoint();
 
   function handleAddPoint() {
-    const pointFormatted = {
-      id: new Date().getTime().toString(),
-      name: point.name,
-      category: point.category,
-      adress: {
-        state: point.adress.state,
-        city: point.adress.city,
-        street: point.adress.street,
-        number: point.adress.number,
-      },
-      image: '/assets/imageTalk.svg',
-    };
-
-    // function savePoint() {
-    //   addDoc(dbInstance, pointFormatted)
-    //     .then(() => {
-    //       setOpen(true);
-    //     })
-    //     .catch((err) => {
-    //       alert(err);
-    //     });
-    // }
-
-    // savePoint();
-
-    data.push(pointFormatted);
+    createPoint(point);
+    setOpen(true);
   }
 
   return (
@@ -150,11 +124,11 @@ export const FormRegister = () => {
           onClick={() =>
             setPoint({
               ...point,
-              category: 'lampadas',
+              category: 'Lâmpadas',
             })
           }
           style={{
-            backgroundColor: point.category === 'lampadas' ? '#34CB79' : '#fff',
+            backgroundColor: point.category === 'Lâmpadas' ? '#34CB79' : '#fff',
           }}
         >
           <Image
@@ -170,12 +144,12 @@ export const FormRegister = () => {
           onClick={() =>
             setPoint({
               ...point,
-              category: 'pilhas-e-baterias',
+              category: 'Pilhas e Baterias',
             })
           }
           style={{
             backgroundColor:
-              point.category === 'pilhas-e-baterias' ? '#34CB79' : '#fff',
+              point.category === 'Pilhas e Baterias' ? '#34CB79' : '#fff',
           }}
         >
           <Image
@@ -191,12 +165,12 @@ export const FormRegister = () => {
           onClick={() =>
             setPoint({
               ...point,
-              category: 'papeis-e-papelao',
+              category: 'Papéis e Papelão',
             })
           }
           style={{
             backgroundColor:
-              point.category === 'papeis-e-papelao' ? '#34CB79' : '#fff',
+              point.category === 'Papéis e Papelão' ? '#34CB79' : '#fff',
           }}
         >
           <Image
@@ -212,12 +186,12 @@ export const FormRegister = () => {
           onClick={() =>
             setPoint({
               ...point,
-              category: 'eletronicos',
+              category: 'Resíduos Eletrônicos',
             })
           }
           style={{
             backgroundColor:
-              point.category === 'eletronicos' ? '#34CB79' : '#fff',
+              point.category === 'Resíduos Eletrônicos' ? '#34CB79' : '#fff',
           }}
         >
           <Image
@@ -233,12 +207,12 @@ export const FormRegister = () => {
           onClick={() =>
             setPoint({
               ...point,
-              category: 'organicos',
+              category: 'Resíduos Orgânicos',
             })
           }
           style={{
             backgroundColor:
-              point.category === 'organicos' ? '#34CB79' : '#fff',
+              point.category === 'Resíduos Orgânicos' ? '#34CB79' : '#fff',
           }}
         >
           <Image
@@ -254,12 +228,12 @@ export const FormRegister = () => {
           onClick={() =>
             setPoint({
               ...point,
-              category: 'oleo-de-cozinha',
+              category: 'Óleo de Cozinha"',
             })
           }
           style={{
             backgroundColor:
-              point.category === 'oleo-de-cozinha' ? '#34CB79' : '#fff',
+              point.category === 'Óleo de Cozinha"' ? '#34CB79' : '#fff',
           }}
         >
           <Image

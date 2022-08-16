@@ -1,13 +1,16 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 
+import { PointProvider } from '../hooks/usePoint';
 import { UserProvider } from '../hooks/useUser';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+    <PointProvider>
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
+    </PointProvider>
   );
 }
 
