@@ -13,9 +13,9 @@ const Register: NextPage = () => {
 
   useEffect(() => {
     if (!user.email) {
-      window.location.href = '/login';
+      window.location.href = '/';
     }
-  }, [user]);
+  }, [user.email]);
 
   return (
     <div className={styles.container}>

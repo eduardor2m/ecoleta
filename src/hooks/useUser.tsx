@@ -15,9 +15,9 @@ interface IUser {
 
 interface UserContextData {
   user: IUser;
-  createUser: (user: IUser) => void;
-  login: (user: IUser) => void;
-  logout: () => void;
+  createUser: (user: IUser) => Promise<void>;
+  login: (user: IUser) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
@@ -32,59 +32,67 @@ export const UserProvider: React.FC<IUserProviderProps> = ({
   const [user, setUser] = useState<IUser>({} as IUser);
 
   useEffect(() => {
-    const userAuth = localStorage.getItem('@userAuth');
-    if (userAuth) {
+    const authenticatedUserEmail = localStorage.getItem(
+      '@ecoleta:authenticatedUser'
+    );
+    if (authenticatedUserEmail) {
       setUser({
-        email: JSON.parse(userAuth),
+        email: JSON.parse(authenticatedUserEmail),
       });
     }
   }, []);
 
-  function createUser(user: IUser) {
+  async function createUser(user: IUser) {
     if (user.email && user.password) {
-      createUserWithEmailAndPassword(auth, user.email, user.password!)
-        .then((userCredential) => {
-          setUser({
-            email: userCredential.user.email!,
-          });
-          localStorage.setItem(
-            '@userAuth',
-            JSON.stringify(userCredential.user)
-          );
-
-          alert('Usuário criado com sucesso!');
-        })
-        .catch((error) => {
-          alert('Erro ao criar usuário!');
-          alert(error.message);
+      const createdUser = await createUserWithEmailAndPassword(
+        auth,
+        user.email,
+        user.password
+      );
+      if (createdUser.user.email) {
+        setUser({
+          email: createdUser.user.email,
         });
+        localStorage.setItem(
+          '@ecoleta:authenticatedUser',
+          JSON.stringify(createdUser.user.email)
+        );
+      } else {
+        alert('Erro ao criar usuário');
+      }
+    } else {
+      alert('Preencha todos os campos');
+    }
+  }
+
+  async function login(user: IUser) {
+    if (user.email && user.password) {
+      const authenticatedUser = await signInWithEmailAndPassword(
+        auth,
+        user.email,
+        user.password
+      );
+
+      if (authenticatedUser.user.email) {
+        setUser({
+          email: authenticatedUser.user.email,
+        });
+        localStorage.setItem(
+          '@ecoleta:authenticatedUser',
+          JSON.stringify(authenticatedUser.user.email)
+        );
+        window.location.href = `/register`;
+      } else {
+        alert('Usuário não encontrado!');
+      }
     } else {
       alert('Preencha todos os campos!');
     }
   }
 
-  function login(user: IUser) {
-    if (user.email && user.password) {
-      signInWithEmailAndPassword(auth, user.email, user.password!)
-        .then((userCredential) => {
-          const { email } = userCredential.user;
-          setUser({
-            email: email!,
-          });
-          localStorage.setItem('@userAuth', JSON.stringify(email!));
-        })
-        .catch((error) => {
-          alert('Erro ao logar!');
-          alert(error.message);
-        });
-    } else {
-      alert('Preencha todos os campos!');
-    }
-  }
-
-  function logout() {
+  async function logout() {
     auth.signOut();
-    localStorage.removeItem('@userAuth');
+    localStorage.removeItem('@ecoleta:authenticatedUser');
     setUser({} as IUser);
     alert('Usuário deslogado com sucesso!');
   }

@@ -14,12 +14,12 @@ type IUser = {
 };
 
 const Login: NextPage = () => {
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [userLogin, setUserLogin] = useState<IUser>({} as IUser);
   const { login } = useUser();
 
   async function handleLogin(e: any) {
     e.preventDefault();
-    login(user);
+    login(userLogin);
   }
 
   return (
@@ -43,12 +43,16 @@ const Login: NextPage = () => {
           <input
             type="text"
             placeholder="E-mail"
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            onChange={(e) =>
+              setUserLogin({ ...userLogin, email: e.target.value })
+            }
           />
           <input
             type="password"
             placeholder="Senha"
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            onChange={(e) =>
+              setUserLogin({ ...userLogin, password: e.target.value })
+            }
           />
           <button
             type="submit"
